@@ -2,8 +2,9 @@
 current_dir=$(pwd)
 
 function run_surge() {
-  surge_path=$(npm bin -g)/surge
-  $surge_path "$@"
+  #surge_path=$(npm bin -g)/surge
+  #$surge_path "$@"
+  $surge_path "surge"
 }
 function generate_random_domain() {
   domain_length=10

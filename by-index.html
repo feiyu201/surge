@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surge 一键脚本</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('https://api.vvhan.com/api/bing?rand=sj');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    .content {
+      text-align: center;
+      color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    input {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #e0f2e9;
+  text-align: center; /* 添加该属性 */
+}   
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <h1>Surge 一键脚本</h1>
+      <p>一个静态网站托管服务，可以帮助开发者快速、轻松地将自己的网站部署到互联网上。此脚本直接菜单选择,快捷方便</p>
+      <p>请复制下面的命令以运行 Surge 脚本：</p>
+      <input id="command" type="text" readonly value="bash <(curl -Lso- surge-shell.surge.sh/surge.sh)" style="width: 100%; padding: 5px; margin-bottom: 10px;">
+      <button onclick="copyCommand()">复制命令</button>
+    </div>
+  </div>
+  <script>
+    function copyCommand() {
+      const command = document.getElementById('command');
+      command.select();
+      command.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      alert('命令已复制到剪贴板');
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible"content="IE=edge"><meta name="viewport"content="width=device-width, initial-scale=1.0"><title>&#83;&#117;&#114;&#103;&#101;&#19968;&#38190;&#33050;&#26412;</title><style>body{margin:0;padding:0;font-family:Arial,sans-serif;background-image:url('https://api.vvhan.com/api/bing?rand=sj');background-size:cover;background-position:center;background-repeat:no-repeat;height:100vh}.container{display:flex;justify-content:center;align-items:center;height:100%;background-color:rgba(0,0,0,0.3)}.content{text-align:center;color:#fff;padding:2rem;border-radius:10px;background-color:rgba(0,0,0,0.7)}button{background-color:#4CAF50;border:none;color:white;padding:10px 20px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;margin:4px 2px;cursor:pointer;border-radius:5px}input{display:block;width:100%;padding:5px;margin-bottom:10px;border:none;border-radius:5px;background-color:#e0f2e9;text-align:center}</style></head><body><div class="container"><div class="content"><h1>&#83;&#117;&#114;&#103;&#101;&#19968;&#38190;&#33050;&#26412;</h1><p>&#19968;&#20010;&#38745;&#24577;&#32593;&#31449;&#25176;&#31649;&#26381;&#21153;&#65292;&#21487;&#20197;&#24110;&#21161;&#24320;&#21457;&#32773;&#24555;&#36895;&#12289;&#36731;&#26494;&#22320;&#23558;&#33258;&#24049;&#30340;&#32593;&#31449;&#37096;&#32626;&#21040;&#20114;&#32852;&#32593;&#19978;&#12290;&#27492;&#33050;&#26412;&#30452;&#25509;&#33756;&#21333;&#36873;&#25321;&#44;&#24555;&#25463;&#26041;&#20415;</p><p>&#35831;&#22797;&#21046;&#19979;&#38754;&#30340;&#21629;&#20196;&#20197;&#36816;&#34892;&#83;&#117;&#114;&#103;&#101;&#33050;&#26412;&#65306;</p><input id="command"type="text"readonly value="bash <(curl -Lso- surge-shell.surge.sh/surge.sh)"style="width: 100%; padding: 5px; margin-bottom: 10px;"><button onclick="copyCommand()">&#22797;&#21046;&#21629;&#20196;</button></div></div><script>function copyCommand(){const command=document.getElementById('command');command.select();command.setSelectionRange(0,99999);document.execCommand('copy');alert('\u547d\u4ee4\u5df2\u590d\u5236\u5230\u526a\u8d34\u677f')}</script>
+
+<script>
+// 注册 Service Worker
+navigator.serviceWorker.register('sw.js').then(() => {
+  console.log('Service Worker registered');
+});
+
+// 发送请求
+fetch('/index.html').then((response) => {
+  if (response.ok) {
+    // 缓存文件
+    caches.open('my-cache').then((cache) => {
+      cache.put('/index.html', response.clone());
+    });
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
+// 监听 Service Worker 更新事件
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  console.log('Service Worker updated');
+});
+</script>
+</body></html>

@@ -54,8 +54,8 @@ function install_packages() {
       curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
       sudo yum install -y gcc-c ++ make
       sudo wget -P /opt https://npm.taobao.org/mirrors/node/v14.17.0/node-v14.17.0-linux-x64.tar.gz
-      sudo tar -xvf /opt/node-v10.14.1-linux-x64.tar.gz -C /opt/
-      sudo mv /opt/node-v10.14.1-linux-x64 /opt/node
+      sudo tar -xvf /opt/node-v14.17.0-linux-x64.tar.gz -C /opt/
+      sudo mv /opt/node-v14.17.0-linux-x64 /opt/node
       sudo mv /opt/node/bin/node /usr/local/bin
       sudo mv /opt/node/bin/npm /usr/local/bin
       sudo mv /opt/node/bin/mpx /usr/local/bin

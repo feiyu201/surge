@@ -139,6 +139,7 @@ SURGE=$(npm bin -g)/surge
 
 # 显示菜单并读取用户选择
 function show_menu() {
+  echo -e "${GREEN}欢迎使用surge脚本管理端！${NC}"
   echo ""
   echo "当前默认路径：${current_dir}"
   echo ""
@@ -291,7 +292,8 @@ function invalid_choice() {
 }
 
 # 显示欢迎信息
-echo -e "${GREEN}欢迎使用surge脚本管理端！${NC}"
+clear
+
 
 # 显示菜单并循环执行
 while true; do

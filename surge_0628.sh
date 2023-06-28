@@ -1,4 +1,5 @@
 #!/bin/bash
+source /etc/profile
 current_dir=$(pwd)
 
 function run_surge() {

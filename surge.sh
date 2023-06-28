@@ -88,11 +88,14 @@ CONFIG_FILE=~/.surge_config
 
 # 检查是否已经登录
 function check_login() {
-  if [[ -z "run_surge_LOGIN" || -z "run_surge_TOKEN" ]]; then
-    return 1
+  if [[ -z "$SURGE_LOGIN" || -z "$SURGE_TOKEN" ]]; then
+    return 0
   fi
-  return 0
+  return 1
 }
+
+
+
 
 # 自动登录或注册
 function auto_login_or_register() {
@@ -168,7 +171,21 @@ function publish_current_dir() {
   echo ""
   echo "当前发布项目路径：${current_dir}"
   echo ""
-    read -p "请输入要发布的域名（留空使用随机域名）: " domain
+   if [ -f "CNAME" ]; then
+     cname=$(cat "${current_dir}/CNAME")
+  if [ ! -z "$cname" ]; then
+      echo "检测到CNAME文件存在且不为空，将使用 $cname 作为默认域名。"
+      domain=$cname
+  fi 
+  fi
+ 
+ read -p "请输入要发布的域名（留空使用随机域名或CNAME文件里的默认域名）[${domain}],输入N或n或NO即随机域名: " input
+  if [[ "$input" =~ ^[Nn][Oo]?$ ]]; then
+    domain=""
+  else
+  domain=${input:-${domain}}
+  fi
+  
   if [ -z "$domain" ]; then
     domain=$(generate_random_domain)
     echo "使用随机域名：$domain"
@@ -179,6 +196,13 @@ function publish_current_dir() {
   run_surge --project $current_dir --domain $domain
   echo ""
   echo -e "${GREEN}发布成功.请访问 https://${domain} ${NC}"
+  
+  if [ "$domain" != "$cname" ]; then
+    read -p "是否保存此域名以便下次使用？(y/n) " save_choice
+    case $save_choice in
+      y|Y) echo "$domain" > "${current_dir}/CNAME" ;;
+    esac
+  fi
 }
 
 # 发布指定目录到 Surge
@@ -190,7 +214,23 @@ function publish_specified_dir() {
       echo -e "${RED}目录不存在，请重新输入。${NC}"
     fi
   done
-   read -p "请输入要发布的域名（留空使用随机域名）: " domain
+
+  if [ -f "${dir}/CNAME" ]; then
+     cname=$(cat "${dir}/CNAME")
+  if [ ! -z "$cname" ]; then
+      echo "检测到CNAME文件存在且不为空，将使用 $cname 作为默认域名。"
+      domain=$cname
+  fi 
+  fi
+  
+  read -p "请输入要发布的域名（留空使用随机域名或CNAME文件里的默认域名）[${domain}],输入N或n或NO即随机域名: " input
+  if [[ "$input" =~ ^[Nn][Oo]?$ ]]; then
+    domain=""
+  else
+  domain=${input:-${domain}}
+  fi
+
+  
   if [ -z "$domain" ]; then
     domain=$(generate_random_domain)
     echo "使用随机域名：$domain"
@@ -200,6 +240,12 @@ function publish_specified_dir() {
   run_surge --project $dir --domain $domain
   echo ""
   echo -e "${GREEN}发布成功.请访问 https://${domain} ${NC}"
+  if [ "$domain" != "$cname" ]; then
+    read -p "是否保存此域名以便下次使用？(y/n) " save_choice
+    case $save_choice in
+      y|Y) echo "$domain" > "${dir}/CNAME" ;;
+    esac
+  fi
 }
 
 # 列出全部项目
@@ -233,7 +279,7 @@ function update_password() {
   read -sp "请输入新密码: " password
   echo ""
   echo "正在更新，请稍候..."
-  echo "export SURGE_TOKEN=\"$(surge token run_surge_LOGIN $password)\"" >> $CONFIG_FILE
+  echo "export SURGE_TOKEN=\"$(surge token SURGE_LOGIN $password)\"" >> $CONFIG_FILE
   source $CONFIG_FILE
   echo ""
   echo -e "${GREEN}更新密码成功！${NC}"
@@ -251,3 +297,4 @@ echo -e "${GREEN}欢迎使用surge脚本管理端！${NC}"
 while true; do
   show_menu
 done
+

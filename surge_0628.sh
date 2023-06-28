@@ -58,7 +58,7 @@ function install_packages() {
       sudo mv node-v10.14.1-linux-x64 /usr/local/node
       sudo echo "export NODE_HOME=/usr/local/node" >> /etc/profile
       sudo echo "export PATH=$NODE_HOME/bin:$PATH" >> /etc/profile
-      source /etc/profile
+      sudo source /etc/profile
       # 设置npm腾讯云源
       npm config set registry http://mirrors.cloud.tencent.com/npm/
       #sudo yum clean all 

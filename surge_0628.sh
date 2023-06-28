@@ -52,7 +52,7 @@ function install_packages() {
       sudo yum -y install epel-release
       #curl -sL https://rpm.nodesource.com/setup_lts.x | sudo bash -
       curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
-      sudo yum install -y gcc-c ++ make
+      sudo yum install -y gcc-c++ make wget
       sudo wget https://npm.taobao.org/mirrors/node/v10.14.1/node-v10.14.1-linux-x64.tar.gz
       sudo tar zxf node-v10.14.1-linux-x64.tar.gz
       sudo mv node-v10.14.1-linux-x64 /usr/local/node
